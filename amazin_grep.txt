@@ -1,0 +1,55 @@
+Grep - PO examples :-
+
+
+
+1) http://www.bing.com/images/search?q=dagger+genesis+solo&view=detailv2&&&id=C65E811DFE01FB11258D2EB4F516F3DD8F09049C&selectedIndex=4&ccid=ffC0NVO8&simid=608046582336849763&thid=JN.XnLfF7qiZGwjJzTCR6f7ZQ&mode=overlay
+
+grep -Po '(<?=search\?q=).+?(?=&)'
+
+
+
+Between (search?q=) and (&) -> dagger+genesis+solo 
+
+
+
+
+2)  default via 192.168.0.1 dev enp3s0 proto dhcp metric 100 
+
+grep -Po '(<?=dev )(\S+)' 
+
+Between (dev ) and selects chars till space
+
+
+
+3)
+
+
+Jul  9 19:58:20 localhost sshd[32566]: Failed password for root from 85.191.214.236 port 47656 ssh2
+Jul  9 19:59:20 localhost sshd[32583]: Failed password for invalid user user from 195.133.40.104 port 41242 ssh2
+Jul  9 19:59:39 localhost sshd[32611]: Failed password for invalid user cedric from 106.55.242.220 port 44422 ssh2
+Jul  9 20:01:37 localhost sshd[32665]: Failed password for invalid user user from 205.185.125.109 port 40580 ssh2
+
+
+cat /var/log/auth.log | tail -100 | grep -Po "(?<=Failed password for ).+?(?=port)" 
+
+
+Output: - morefil.txt
+
+invalid user user from 205.185.125.109 
+root from 119.45.193.78 
+root from 61.177.173.11 
+root from 61.177.173.11 
+root from 27.19.223.164 
+root from 119.45.193.78 
+root from 180.76.50.203 
+invalid user user from 222.99.52.216 
+
+
+cat morefil.txt | grep -Po "(\d+).+"
+
+85.191.214.236 
+195.133.40.104 
+106.55.242.220 
+205.185.125.109 
+119.45.193.78 
+61.177.173.11 
